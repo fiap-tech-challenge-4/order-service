@@ -18,7 +18,7 @@ import java.util.List;
 import static br.com.order.enums.OrderStatus.COMPLETED;
 import static br.com.order.enums.OrderStatus.PREPARING;
 import static br.com.order.enums.OrderStatus.READY;
-import static br.com.order.errors.Errors.STATUS_INVALIDO;
+import static br.com.order.errors.Errors.INVALID_STATUS;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 @Data
@@ -44,7 +44,7 @@ public class Order {
       case RECEIVED -> PREPARING;
       case PREPARING -> READY;
       case READY -> COMPLETED;
-      default -> throw new BusinessException(STATUS_INVALIDO, UNPROCESSABLE_ENTITY);
+      default -> throw new BusinessException(INVALID_STATUS, UNPROCESSABLE_ENTITY);
     };
   }
 

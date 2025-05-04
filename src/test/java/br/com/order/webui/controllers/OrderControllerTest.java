@@ -118,7 +118,7 @@ class OrderControllerTest {
       .status(RECEIVED)
       .additionalInfo("Teste")
       .date(LocalDateTime.now())
-      .totalValue(100.0)
+      .totalValue(BigDecimal.valueOf(100.00))
       .items(List.of(
         OrderItemResponse.builder()
           .productId(1L)
