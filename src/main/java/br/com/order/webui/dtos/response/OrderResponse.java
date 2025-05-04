@@ -9,15 +9,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static br.com.order.webui.constants.Constants.DATE_TIME_FORMAT;
+import static br.com.order.webui.constants.Descriptions.ADDITIONAL_INFO;
 import static br.com.order.webui.constants.Descriptions.CLIENT_ID;
-import static br.com.order.webui.constants.Descriptions.ORDER_DATE;
 import static br.com.order.webui.constants.Descriptions.ID;
 import static br.com.order.webui.constants.Descriptions.ITEMS_LIST;
-import static br.com.order.webui.constants.Descriptions.ADDITIONAL_INFO;
+import static br.com.order.webui.constants.Descriptions.ORDER_DATE;
 import static br.com.order.webui.constants.Descriptions.ORDER_STATUS;
 import static br.com.order.webui.constants.Descriptions.VLR_TOTAL;
 
@@ -39,7 +40,7 @@ public class OrderResponse {
     private String clientId;
 
     @Schema(description = VLR_TOTAL)
-    private Double totalValue;
+    private BigDecimal totalValue;
 
     @Schema(description = ORDER_STATUS)
     private OrderStatus status;

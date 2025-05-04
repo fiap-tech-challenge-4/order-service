@@ -19,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -80,7 +79,7 @@ public class OrderController {
   @ApiResponses(value = {
     @ApiResponse(responseCode = "200", description = "Order status updated successfully",
       content = {@Content(mediaType = "application/json", schema = @Schema(implementation = OrderResponse.class))})})
-  @PatchMapping("/status/{id}")
+  @PostMapping("/status/{id}")
   public ResponseEntity<OrderResponse> updateOrderStatus(
     @Parameter(description = ID)
     @PathVariable(name = "id")

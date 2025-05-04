@@ -44,7 +44,7 @@ public class OrderConverter {
       .clientId(order.getClientId())
       .date(order.getDate())
       .status(order.getStatus())
-      .totalValue(order.getTotalValue() != null ? order.getTotalValue().doubleValue() : null)
+      .totalValue(order.getTotalValue())
       .additionalInfo(order.getAdditionalInfo())
       .items(toOrderItemResponseList(order.getItems()))
       .build();
