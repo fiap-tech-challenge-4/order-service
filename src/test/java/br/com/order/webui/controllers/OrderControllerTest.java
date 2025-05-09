@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import static br.com.order.enums.OrderStatus.COMPLETED;
 import static br.com.order.enums.OrderStatus.RECEIVED;
 import static br.com.order.utils.JsonUtils.toJson;
 import static org.hamcrest.Matchers.hasSize;
@@ -102,9 +103,27 @@ class OrderControllerTest {
     pagedResponse.setHasNext(false);
     pagedResponse.setHasPrevious(false);
 
-    when(orderUseCase.listOrders(1, 25)).thenReturn(pagedResponse);
+    when(orderUseCase.listOrders(1, 25, null)).thenReturn(pagedResponse);
 
     mockMvc.perform(get("/api/v1/order/list?page=1&limit=25"))
+      .andExpect(status().isOk())
+      .andExpect(jsonPath("$.items", hasSize(1)))
+      .andExpect(jsonPath("$.pageNumber", is(1)));
+  }
+
+  @Test
+  @DisplayName("Should list orders with pagination")
+  void shouldListOrdersWithStatusCompleted() throws Exception {
+    PaginationResponse<OrderResponse> pagedResponse = new PaginationResponse<>();
+    pagedResponse.setItems(List.of(getOrderResponse()));
+    pagedResponse.setPageNumber(1);
+    pagedResponse.setPageSize(1);
+    pagedResponse.setHasNext(false);
+    pagedResponse.setHasPrevious(false);
+
+    when(orderUseCase.listOrders(1, 25, COMPLETED)).thenReturn(pagedResponse);
+
+    mockMvc.perform(get("/api/v1/order/list?page=1&limit=25&orderStatus=COMPLETED"))
       .andExpect(status().isOk())
       .andExpect(jsonPath("$.items", hasSize(1)))
       .andExpect(jsonPath("$.pageNumber", is(1)));

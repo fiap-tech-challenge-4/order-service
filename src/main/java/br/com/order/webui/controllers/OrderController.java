@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static br.com.order.enums.OrderStatus.toOrderStatusString;
 import static br.com.order.errors.Errors.MINIMAL_PAGE;
 import static br.com.order.webui.constants.Descriptions.ID;
 import static br.com.order.webui.constants.Descriptions.LIMIT;
@@ -98,8 +99,12 @@ public class OrderController {
     @RequestParam(required = false, defaultValue = "1")
     @Min(value = 1, message = MINIMAL_PAGE) final Integer page,
     @Parameter(description = LIMIT)
-    @RequestParam(required = false, defaultValue = "25") final Integer limit) {
-    var response = orderUseCase.listOrders(page, limit);
+    @RequestParam(required = false, defaultValue = "25")
+    final Integer limit,
+    @Parameter(description = "Order status to filter by")
+    @RequestParam(required = false)
+    final String orderStatus) {
+    var response = orderUseCase.listOrders(page, limit, toOrderStatusString(orderStatus));
     return new ResponseEntity<>(response, HttpStatus.OK);
   }
 }

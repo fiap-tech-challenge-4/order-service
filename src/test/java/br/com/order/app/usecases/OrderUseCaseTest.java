@@ -128,7 +128,7 @@ class OrderUseCaseTest {
     when(orderRepository.findByStatusNotOrderByDateDesc(eq("COMPLETED"), any()))
       .thenReturn(page);
 
-    PaginationResponse<OrderResponse> response = orderUseCase.listOrders(1, 10);
+    PaginationResponse<OrderResponse> response = orderUseCase.listOrders(1, 10, null);
 
     assertThat(response.getItems()).hasSize(1);
     assertThat(response.getPageNumber()).isEqualTo(1);

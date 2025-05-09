@@ -12,4 +12,6 @@ public interface OrderRepository extends MongoRepository<Order, ObjectId> {
 
   Page<Order> findByStatusNotOrderByDateDesc(String status, Pageable pageable);
 
+  Page<Order> findByStatusOrderByDateDesc(String status, Pageable pageable);
+
 }

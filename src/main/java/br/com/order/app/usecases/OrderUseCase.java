@@ -3,6 +3,7 @@ package br.com.order.app.usecases;
 import br.com.order.app.entities.Order;
 import br.com.order.app.exception.BusinessException;
 import br.com.order.app.repositories.OrderRepository;
+import br.com.order.enums.OrderStatus;
 import br.com.order.utils.Pagination;
 import br.com.order.webui.dtos.ItemDTO;
 import br.com.order.webui.dtos.OrderDTO;
@@ -10,6 +11,7 @@ import br.com.order.webui.dtos.response.OrderResponse;
 import br.com.order.webui.dtos.response.PaginationResponse;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -49,10 +51,15 @@ public class OrderUseCase {
     return toOrderResponse(orderRepository.save(order));
   }
 
-  public PaginationResponse<OrderResponse> listOrders(Integer page, Integer limit) {
+  public PaginationResponse<OrderResponse> listOrders(Integer page, Integer limit, OrderStatus orderStatus) {
+    return toOrderResponseList(getOrders(orderStatus, page, limit));
+  }
+
+  private Page<Order> getOrders(OrderStatus orderStatus, Integer page, Integer limit) {
     var pageable = Pagination.getPageRequest(limit, page, "DESC", "id");
-    var orders = orderRepository.findByStatusNotOrderByDateDesc(COMPLETED.name(), pageable);
-    return toOrderResponseList(orders);
+    return orderStatus != null
+      ? orderRepository.findByStatusOrderByDateDesc(orderStatus.name(), pageable)
+      : orderRepository.findByStatusNotOrderByDateDesc(COMPLETED.name(), pageable);
   }
 
   private Order getOrder(String id) {
