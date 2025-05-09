@@ -95,7 +95,7 @@ jobs:
 
       - name: Apply Kubernetes manifests
         run: |
-          kubectl apply -f ./k8s/app-secret.yml
+          kubectl apply -f ./k8s/app-secrets.yml
           kubectl apply -f ./k8s/hpa.yml
           kubectl apply -f ./k8s/metrics.yml
           kubectl apply -f ./k8s/app-deployment.yml
