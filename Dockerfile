@@ -1,3 +1,6 @@
+# ============================
+# Build stage
+# ============================
 FROM maven:eclipse-temurin AS build
 
 WORKDIR /app
@@ -5,7 +8,10 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 
-RUN mvn clean package -DskipTests
+RUN mvn clean package -DskipTests && \
+    cd target && \
+    jar uf order-service-0.0.1-SNAPSHOT.jar \
+    -C META-INF/MANIFEST.MF .
 
 FROM eclipse-temurin:21-jdk
 
