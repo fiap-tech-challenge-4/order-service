@@ -11,6 +11,7 @@ env:
   IMAGE_TAG: latest
   SONAR_HOST_URL: https://sonarcloud.io
   SONAR_PROJECT_KEY: order-service
+  SONAR_ORGANIZATION: fiap-tech-challenge
 
 jobs:
   build-and-test:
@@ -32,6 +33,7 @@ jobs:
         run: |
           mvn clean verify sonar:sonar \
             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }} \
+            -Dsonar.organization=${{ env.SONAR_ORGANIZATION }} \
             -Dsonar.host.url=${{ env.SONAR_HOST_URL }} \
             -Dsonar.login=$SONAR_TOKEN \
             -Dsonar.qualitygate.wait=true
