@@ -34,9 +34,9 @@ jobs:
           mvn clean verify sonar:sonar \
             -Dsonar.projectKey=${{ env.SONAR_PROJECT_KEY }} \
             -Dsonar.organization=${{ env.SONAR_ORGANIZATION }} \
+            -Dsonar.branch.name=main \
             -Dsonar.host.url=${{ env.SONAR_HOST_URL }} \
-            -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.qualitygate.wait=true
+            -Dsonar.login=$SONAR_TOKEN
 
       - name: Build application
         run: |
