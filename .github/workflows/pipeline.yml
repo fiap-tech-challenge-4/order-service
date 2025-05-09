@@ -10,7 +10,7 @@ env:
   ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
   IMAGE_TAG: latest
   SONAR_HOST_URL: https://sonarcloud.io
-  SONAR_PROJECT_KEY: order-service
+  SONAR_PROJECT_KEY: gf-tech-challenge
   SONAR_ORGANIZATION: fiap-tech-challenge
 
 jobs:
